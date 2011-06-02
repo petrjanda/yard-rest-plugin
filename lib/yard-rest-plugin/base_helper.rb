@@ -18,7 +18,8 @@ module YARD::Templates::Helpers
       res = reject_without_url(res)
       res = reject_without_topic(res)
       res = reject_overall(res)
-
+      res = reject_private(res)
+      
       res
     end
 
@@ -37,5 +38,9 @@ module YARD::Templates::Helpers
     def reject_overall(list)
       list.reject { |object| object.has_tag?('overall') }
     end
+    
+    def reject_private(list)
+      list.reject { |object| object.has_tag?('access') && object.tags("access") == 'private' }
+    end    
   end
 end
