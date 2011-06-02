@@ -40,7 +40,9 @@ module YARD::Templates::Helpers
     end
     
     def reject_private(list)
-      list.reject { |object| object.has_tag?('access') && object.tags("access") == 'private' }
+      list.reject do |object| 
+        !object.tags("access").first.nil? and object.tags("access").first.text == 'private'
+      end
     end    
   end
 end
